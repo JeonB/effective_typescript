@@ -9,6 +9,7 @@ const sarah = { name: "Sarah" } as Person;
 const alice: Person = {}; // 오류 발생
 const bob = {} as Person; // 정상
 
+// 화살표 함수의 반환 타입 명시
 const people: Person[] = ["chris", "sarah", "alice", "bob"].map(
   (name): Person => ({ name })
 );
