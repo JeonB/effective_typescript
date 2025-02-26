@@ -12,6 +12,7 @@ const item19 = () => {
     price: number;
   }
 
+  // 타입을 명시하지 않으면 해당 값이 사용된 곳에서만 에러가 발생함을 알 수 있다.
   const furby = {
     id: 123456,
     name: "퍼비",
@@ -46,5 +47,15 @@ const item19 = () => {
         cache[ticker] = quote;
         return quote;
       });
+  }
+
+  // async/await 함수가 Promise 오류를 피하는데 효과적
+  async function getQuote2(ticker: string): Promise<number> {
+    if (ticker in cache) return cache[ticker];
+
+    const response = await fetch(`https://quotes.example.com/?q=${ticker}`);
+    const quote = await response.json();
+    cache[ticker] = quote;
+    return quote;
   }
 };
