@@ -55,3 +55,26 @@ let userArr: IUser[] = [
     isValid: true,
   },
 ];
+
+let arrA: readonly number[] = [1, 2, 3, 4];
+let arrB: ReadonlyArray<number> = [0, 9, 8, 7];
+
+arrA[0] = 123; // Error - TS2542: Index signature in type 'readonly number[]' only permits reading.
+arrA.push(123); // Error - TS2339: Property 'push' does not exist on type 'readonly number[]'.
+
+arrB[0] = 123; // Error - TS2542: Index signature in type 'readonly number[]' only permits reading.
+arrB.push(123); // Error - TS2339: Property 'push' does not exist on type 'readonly number[]'.
+
+// Tuple 활용
+let users: [number, string, boolean][];
+// Or
+// let users: Array<[number, string, boolean]>
+
+users = [
+  [1, "Neo", true],
+  [2, "Evan", false],
+  [3, "Lewis", true],
+];
+
+let a: readonly [string, number] = ["Hello", 123];
+a[0] = "World"; // Error - TS2540: Cannot assign to '0' because it is a read-only property
