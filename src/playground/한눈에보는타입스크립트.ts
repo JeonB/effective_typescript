@@ -78,3 +78,25 @@ users = [
 
 let a: readonly [string, number] = ["Hello", 123];
 a[0] = "World"; // Error - TS2540: Cannot assign to '0' because it is a read-only property
+
+//Enum
+// 값 설정 안 하면 0부터 시작해서 1씩 증가
+// Week.Sun = 0 , Week[0] = "Sun"  역방향 매핑 지원
+enum Week {
+  Sun,
+  Mon,
+  Tue,
+  Wed,
+  Thu,
+  Fri,
+  Sat,
+}
+
+// 문자열은 리버스 매핑 지원 x
+enum Color {
+  Red = "red",
+  Green = "green",
+  Blue = "blue",
+}
+console.log(Color.Red); // red
+console.log(Color["Green"]); // green
