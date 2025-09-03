@@ -100,3 +100,17 @@ enum Color {
 }
 console.log(Color.Red); // red
 console.log(Color["Green"]); // green
+
+// Unknown
+// any와 동일하게 어떤 타입이든 할당할 수 있지만, unknown은 다른 타입에 할당 불가
+let av: unknown = 123;
+let bv: any = 123;
+
+av = "Hello";
+bv = "Hello";
+
+let cv = 123;
+cv = av; // 에러발생
+
+console.log(av); // unknown
+console.log(bv); // any
