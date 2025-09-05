@@ -114,3 +114,19 @@ cv = av; // 에러발생
 
 console.log(av); // unknown
 console.log(bv); // any
+
+// Object
+// typeof 연산자가 "object"로 반환하는 모든 타입
+let obje: object = {};
+let arr: object = [];
+let func: object = function () {};
+let nullValue: object = null; // null은 strict 옵션 설정 시 할당 불가가
+let date: object = new Date();
+
+// void
+// 값을 반환하지 않는 함수는 실제로는 undefined를 반환함. 단지 그 값을 사용 안 할뿐
+function hello(msg: string): void {
+  console.log(`Hello ${msg}`);
+}
+const hi: void = hello("world"); // Hello world
+console.log(hi); // undefined
