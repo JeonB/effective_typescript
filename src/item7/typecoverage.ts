@@ -22,4 +22,10 @@ const item7 = () => {
     birth: new Date("1980-01-01"),
     death: new Date("2050-01-01"),
   };
+
+  let double: [number, number] = [1, 2];
+  let triple: [number, number, number] = [1, 2, 3];
+
+  // double = triple;
+  // triple = double;
 };
