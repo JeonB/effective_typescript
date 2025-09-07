@@ -100,6 +100,7 @@ enum Color {
 }
 console.log(Color.Red); // red
 console.log(Color["Green"]); // green
+console.log(Color["green"]); // 리버스 매핑은 안 됨
 
 // Unknown
 // any와 동일하게 어떤 타입이든 할당할 수 있지만, unknown은 다른 타입에 할당 불가
@@ -130,3 +131,23 @@ function hello(msg: string): void {
 }
 const hi: void = hello("world"); // Hello world
 console.log(hi); // undefined
+
+/* any */
+let any: any = 123;
+any = "Hello world";
+any = {};
+any = null;
+
+const list: any[] = [1, true, "Anything!"];
+
+/* unknown */
+let unknown: unknown = 123;
+unknown = "Hello world";
+unknown = {};
+unknown = null;
+any = unknown; // 유일하게 unknown은 any에 할당 가능
+
+const 문자열: string = unknown; //any와 달리 unknown은 모든 타입에 할당 불가
+const 문자열2: string = unknown as string;
+
+const list2: unknown[] = [1, true, "Anything!"];
