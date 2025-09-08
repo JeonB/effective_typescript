@@ -151,3 +151,17 @@ const 문자열: string = unknown; //any와 달리 unknown은 모든 타입에 �
 const 문자열2: string = unknown as string;
 
 const list2: unknown[] = [1, true, "Anything!"];
+
+/* object */
+let obj2: object = {};
+let arr2: object = [];
+let func2: object = function () {};
+let nullValue2: object = null;
+let date2: object = new Date();
+
+/* void */
+function hello2(msg: string): void {
+  console.log(`Hello ${msg}`);
+}
+const hi2: void = hello2("world"); // Hello world
+console.log(hi2); // 실제로는 undefined를 반환
