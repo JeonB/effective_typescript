@@ -165,3 +165,38 @@ function hello2(msg: string): void {
 }
 const hi2: void = hello2("world"); // Hello world
 console.log(hi2); // 실제로는 undefined를 반환
+
+/* never */
+/* 절대 발생하지 않을 값을 나타내며, 어떠한 타입도 적용할 수 없음 */
+function error(message: string): never {
+  throw new Error(message);
+}
+
+const never: [] = []; // number[]로 해야됨
+never.push(3); // Error - TS2345: Argument of type '3' is not assignable to parameter of type 'never'.
+
+/* non-null 연산자 */
+// Error - TS2533: Object is possibly 'null' or 'undefined'.
+function fnA(x: number | null | undefined) {
+  return x.toFixed(2);
+}
+
+// if statement
+function fnD(x: number | null | undefined) {
+  if (x) {
+    return x.toFixed(2);
+  }
+}
+
+// Type assertion
+function fnB(x: number | null | undefined) {
+  return (x as number).toFixed(2);
+}
+function fnC(x: number | null | undefined) {
+  return (<number>x).toFixed(2);
+}
+
+// Non-null assertion operator
+function fnE(x: number | null | undefined) {
+  return x!.toFixed(2);
+}
