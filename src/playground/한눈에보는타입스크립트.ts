@@ -200,3 +200,24 @@ function fnC(x: number | null | undefined) {
 function fnE(x: number | null | undefined) {
   return x!.toFixed(2);
 }
+
+/* 타입 만족 */
+// Pass.. 안전하지 않은 타입 '단언'..
+interface User {
+  name: string;
+  age: number;
+}
+
+const userA = {
+  name: "Neo",
+} as User;
+
+// Error! 안전한 타입 '선언'!
+const userB: User = {
+  name: "Neo",
+};
+
+// Error! 안전한 타입 '만족'!
+const userC = {
+  name: "Neo",
+} satisfies User;
