@@ -213,11 +213,21 @@ const userA = {
 } as User;
 
 // Error! 안전한 타입 '선언'!
-const userB: User = {
-  name: "Neo",
+const typeUser: User = {
+  name: "jeon",
+  age: 20,
+  isValid: true,
 };
 
+let userB = {
+  name: "Neo",
+  age: 20,
+  isValid: true,
+};
+const userB2: User = userB; // 구조적 타입 시스템 때문에 가능
+
 // Error! 안전한 타입 '만족'!
+// 타입이 만족을 하는지 확인만 하니 그다지 유용하지 않음
 const userC = {
   name: "Neo",
 } satisfies User;
