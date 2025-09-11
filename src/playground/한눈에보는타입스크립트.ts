@@ -231,3 +231,68 @@ const userB2: User = userB; // 구조적 타입 시스템 때문에 가능
 const userC = {
   name: "Neo",
 } satisfies User;
+
+/* interface */
+interface Users {
+  name: string;
+  age: number;
+  isAdult: boolean;
+}
+
+let user1: Users = {
+  name: "Neo",
+  age: 123,
+  isAdult: true,
+};
+
+// Error - TS2741: Property 'isAdult' is missing in type '{ name: string; age: number; }' but required in type 'IUser'.
+let user2: Users = {
+  name: "Evan",
+  age: 456,
+};
+
+interface IUser {
+  readonly name: string;
+  age: number;
+}
+
+// 초기화
+let user: IUser = {
+  name: "Neo",
+  age: 36,
+};
+
+user.age = 85; // Ok
+user.name = "Evan"; // Error - TS2540: Cannot assign to 'name' because it is a read-only property.
+
+// All readonly properties
+interface IUser {
+  readonly name: string;
+  readonly age: number;
+}
+let user: IUser = {
+  name: "Neo",
+  age: 36,
+};
+user.age = 85; // Error
+user.name = "Evan"; // Error
+
+// Readonly Utility
+interface IUser {
+  name: string;
+  age: number;
+}
+let user: Readonly<IUser> = {
+  name: "Neo",
+  age: 36,
+};
+user.age = 85; // Error
+user.name = "Evan"; // Error
+
+// Type assertion
+let user = {
+  name: "Neo",
+  age: 36,
+} as const;
+user.age = 85; // Error
+user.name = "Evan"; // Error
