@@ -1,4 +1,19 @@
 const item7 = () => {
+  type Vector1D = {
+    x: number;
+  };
+
+  type Vector2D = {
+    x: number;
+    y: number;
+  };
+
+  type Vector3D = {
+    x: number;
+    y: number;
+    z: number;
+  };
+
   // unit type 가장 작은 집합
   type A = "A";
   type B = "B";

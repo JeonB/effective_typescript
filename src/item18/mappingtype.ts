@@ -1,3 +1,27 @@
+interface MappingTypeExample {
+  coffee: string;
+  tea: string;
+  water: string;
+  milk: string;
+  juice: string;
+  soda: string;
+  beer: string;
+}
+
+type MappingTypeExample2 = {
+  [K in keyof MappingTypeExample]?: MappingTypeExample[K];
+};
+
+type OptionsFlags<T> = {
+  [Property in keyof T]: boolean;
+};
+
+type FeatureFlags = OptionsFlags<MappingTypeExample>;
+
+type FeatureFlags2 = {
+  [K in keyof MappingTypeExample]?: boolean;
+};
+
 interface ScatterProps {
   xs: number[];
   ys: number[];

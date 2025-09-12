@@ -8,10 +8,14 @@ const item4 = () => {
   function calculateLength(v: Vector3D) {
     let length = 0;
 
+    // 에러 발생
     for (const axis of Object.keys(v)) {
       const cooord = v[axis]; // 타입스크립트는 구조적 타이핑을 모델링하므로 v에 {x: 1, y: 2, z: 3 , note : "what is this"} 이외의 다른 속성이 있을 수 있다. 이 속성이 string 처럼 Vector3D에 정의된 타입이 아니라서 에러가 발생한다.
       length += Math.abs(cooord);
     }
+
+    // 반복문 사용이 아닌 풀어서 계산
+    Math.sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
   }
 
   interface Author {
