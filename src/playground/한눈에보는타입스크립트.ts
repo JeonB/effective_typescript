@@ -296,3 +296,53 @@ let user = {
 } as const;
 user.age = 85; // Error
 user.name = "Evan"; // Error
+
+interface IName {
+  (PARAMETER: PARAM_TYPE): RETURN_TYPE; // Call signature
+}
+
+interface IUser {
+  name: string;
+}
+interface IGetUser {
+  (name: string): IUser;
+}
+
+// 매개 변수 이름이 인터페이스와 일치할 필요가 없습니다.
+// 또한 타입 추론을 통해 매개 변수를 순서에 맞게 암시적 타입으로 제공할 수 있습니다.
+const getUser: IGetUser = function (n) {
+  // n is name: string
+  // Find user logic..
+  // ...
+  return user;
+};
+getUser("Heropy");
+
+interface IUser {
+  name: string;
+  getName(): string;
+}
+
+class User implements IUser {
+  constructor(public name: string) {}
+  getName() {
+    return this.name;
+  }
+}
+
+const neo = new User("Neo");
+neo.getName(); // Neo
+
+interface ICat {
+  name: string;
+}
+
+class Cat implements ICat {
+  constructor(public name: string) {}
+}
+
+function makeKitten(c: ICat, n: string) {
+  return new c(n); // Error - TS2351: This expression is not constructable. Type 'ICat' has no construct signatures.
+}
+const kitten = makeKitten(Cat, "Lucy");
+console.log(kitten);
