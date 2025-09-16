@@ -318,12 +318,12 @@ const getUser: IGetUser = function (n) {
 };
 getUser("Heropy");
 
-interface IUser {
+interface IUser2 {
   name: string;
   getName(): string;
 }
 
-class User implements IUser {
+class User implements IUser2 {
   constructor(public name: string) {}
   getName() {
     return this.name;
@@ -346,3 +346,116 @@ function makeKitten(c: ICat, n: string) {
 }
 const kitten = makeKitten(Cat, "Lucy");
 console.log(kitten);
+
+interface ICat2 {
+  name: string;
+}
+interface ICatConstructor {
+  new (name: string): ICat2;
+}
+
+class Cat2 implements ICat2 {
+  constructor(public name: string) {}
+}
+
+function makeKitten2(c: ICatConstructor, n: string) {
+  return new c(n); // ok
+}
+const kitten2 = makeKitten2(Cat2, "Lucy");
+console.log(kitten);
+interface IFullName {
+  firstName: string;
+  lastName: string;
+}
+interface IFullNameConstructor {
+  new (firstName: string): IFullName; // Construct signature
+}
+
+function makeSon(c: IFullNameConstructor, firstName: string) {
+  return new c(firstName);
+}
+function getFullName(son: IFullName) {
+  return `${son.firstName} ${son.lastName}`;
+}
+
+// Anderson family
+class Anderson implements IFullName {
+  public lastName: string;
+  constructor(public firstName: string) {
+    this.lastName = "Anderson";
+  }
+}
+const tomas = makeSon(Anderson, "Tomas");
+const jack = makeSon(Anderson, "Jack");
+getFullName(tomas); // Tomas Anderson
+getFullName(jack); // Jack Anderson
+
+// Smith family?
+class Smith implements IFullName {
+  public lastName: string;
+  constructor(public firstName: string, agentCode: number) {
+    this.lastName = `Smith ${agentCode}`;
+  }
+}
+const smith = makeSon(Smith, 7); // Error - TS2345: Argument of type 'typeof Smith' is not assignable to parameter of type 'IFullNameConstructor'.
+getFullName(smith);
+
+interface IItem {
+  [itemIndex: number]: string; // Index signature
+}
+let item: IItem = ["a", "b", "c"]; // Indexable type
+console.log(item[0]); // 'a' is string.
+console.log(item[1]); // 'b' is string.
+console.log(item["0"]);
+
+interface IItem2 {
+  [itemIndex: number]: string | boolean | number[];
+}
+let item2: IItem2 = ["Hello", false, [1, 2, 3]];
+console.log(item[0]); // Hello
+console.log(item[1]); // false
+console.log(item[2]); // [1, 2, 3]
+
+interface ICountries {
+  KR: "대한민국";
+  US: "미국";
+  CP: "중국";
+}
+let country: keyof ICountries; // 'KR' | 'US' | 'CP'
+country = "KR"; // ok
+country = "RU"; // Error - TS2322: Type '"RU"' is not assignable to type '"KR" | "US" | "CP"'.
+let country2: ICountries[keyof ICountries]; // ICountries['KR' | 'US' | 'CP']
+country2 = "대한민국";
+country2 = "러시아"; // Error - TS2322: Type '"러시아"' is not assignable to type '"대한민국" | "미국" | "중국"'.
+
+const fruits3 = ["Apple", "Banana", "Cherry"] as const;
+type Fruit = (typeof fruits3)[number];
+// type Fruit = 'Apple' | 'Banana' | 'Cherry'
+
+interface IAnimal {
+  name: string;
+}
+interface ICat extends IAnimal {
+  meow(): string;
+}
+
+class Cat implements ICat {
+  // Error - TS2420: Class 'Cat' incorrectly implements interface 'ICat'. Property 'name' is missing in type 'Cat' but required in type 'ICat'.
+  meow() {
+    return "MEOW~";
+  }
+}
+
+interface IFullName {
+  firstName: string;
+  lastName: string;
+}
+interface IFullName {
+  middleName: string;
+}
+
+const fullName: IFullName = {
+  firstName: "Tomas",
+  middleName: "Sean",
+  lastName: "Connery",
+};
