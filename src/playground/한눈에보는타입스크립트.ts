@@ -459,3 +459,39 @@ const fullName: IFullName = {
   middleName: "Sean",
   lastName: "Connery",
 };
+
+/* 제네릭 */
+//재사용을 목적으로 함수나 클래스의 선언 시점이 아닌, 사용 시점에 타입을 선언할 수 있는 방법을 제공
+
+// 범용성 떨어짐
+function toArray(a: number, b: number): number[] {
+  return [a, b];
+}
+toArray(1, 2);
+toArray("1", "2"); // Error - TS2345: Argument of type '"1"' is not assignable to parameter of type 'number'.
+
+// 가독성 떨어짐
+function toArray(a: number | string, b: number | string): (number | string)[] {
+  return [a, b];
+}
+toArray(1, 2); // Only Number
+toArray("1", "2"); // Only String
+toArray(1, "2"); // Number & String
+
+function toArray<T>(a: T, b: T): T[] {
+  return [a, b];
+}
+
+toArray<number>(1, 2);
+toArray<string>("1", "2");
+toArray<string | number>(1, "2");
+toArray<number>(1, "2"); // Error
+
+// 타입 추론때문에 사용 시점에 타입 제공 안 해도 됨
+function toArray<T>(a: T, b: T): T[] {
+  return [a, b];
+}
+
+toArray(1, 2);
+toArray("1", "2");
+toArray(1, "2"); // Error
