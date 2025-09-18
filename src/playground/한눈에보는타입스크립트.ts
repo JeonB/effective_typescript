@@ -495,3 +495,72 @@ function toArray<T>(a: T, b: T): T[] {
 toArray(1, 2);
 toArray("1", "2");
 toArray(1, "2"); // Error
+
+/* 제약 조건 */
+// 아래 코드는 제네릭에 대하여 제약 조건이 없음
+interface MyType<T> {
+  name: string;
+  value: T;
+}
+
+const dataA: MyType<string> = {
+  name: "Data A",
+  value: "Hello world",
+};
+const dataB: MyType<number> = {
+  name: "Data B",
+  value: 1234,
+};
+const dataC: MyType<boolean> = {
+  name: "Data C",
+  value: true,
+};
+const dataD: MyType<number[]> = {
+  name: "Data D",
+  value: [1, 2, 3, 4],
+};
+
+// 제약 조건 추가 - string 또는 number 타입만 가능
+interface MyType<T extends string | number> {
+  name: string;
+  value: T;
+}
+
+const dataA: MyType<string> = {
+  name: "Data A",
+  value: "Hello world",
+};
+const dataB: MyType<number> = {
+  name: "Data B",
+  value: 1234,
+};
+const dataC: MyType<boolean> = {
+  // TS2344: Type 'boolean' does not satisfy the constraint 'string | number'.
+  name: "Data C",
+  value: true,
+};
+const dataD: MyType<number[]> = {
+  // TS2344: Type 'number[]' does not satisfy the constraint 'string | number'.
+  name: "Data D",
+  value: [1, 2, 3, 4],
+};
+
+type U = string | number | boolean;
+
+// type 식별자 = 타입 구현
+type MyType<T extends U> = string | T;
+
+// interface 식별자 { 타입 구현 }
+interface IUser3<T extends U> {
+  name: string;
+  age: T;
+}
+
+const user3: IUser3<string> = {
+  name: "Neo",
+  age: "20",
+};
+const user4: IUser3<boolean> = {
+  name: "Neo",
+  age: true,
+};
