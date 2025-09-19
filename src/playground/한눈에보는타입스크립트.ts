@@ -564,3 +564,52 @@ const user4: IUser3<boolean> = {
   name: "Neo",
   age: true,
 };
+
+/* 조건부 타입 */
+// T extends U ? X : Y
+type U2 = string | number | boolean;
+
+// type 식별자 = 타입 구현
+type MyType<T> = T extends U2 ? string : never;
+
+// interface 식별자 { 타입 구현 }
+interface IUser4<T2> {
+  name: string;
+  age: T2 extends U2 ? number : never;
+}
+
+const user5: IUser4<boolean> = {
+  name: "Neo",
+  age: 1,
+};
+
+/* 함수 */
+const obj = {
+  a: "Hello~",
+  b: function () {
+    console.log(this.a); // obj.a
+    // Inner function
+    function b() {
+      console.log(this.a); // global.a
+    }
+  },
+};
+
+const obj = {
+  a: "Hello~",
+  b: function () {
+    console.log(this.a);
+  },
+};
+
+obj.b(); // Hello~
+
+const b = obj.b;
+b(); // Cannot read property 'a' of undefined
+
+function someFn(cb: any) {
+  cb();
+}
+someFn(obj.b); // Cannot read property 'a' of undefined
+
+setTimeout(obj.b, 100); // undefined
