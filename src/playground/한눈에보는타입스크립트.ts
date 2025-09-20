@@ -613,3 +613,30 @@ function someFn(cb: any) {
 someFn(obj.b); // Cannot read property 'a' of undefined
 
 setTimeout(obj.b, 100); // undefined
+
+/* 명시적 this */
+interface ICat {
+  name: string;
+}
+
+const cat: ICat = {
+  name: "Lucy",
+};
+
+function someFn(greeting: string) {
+  console.log(`${greeting} ${this.name}`); // Error - TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
+}
+someFn.call(cat, "Hello"); // Hello Lucy
+
+interface ICat {
+  name: string;
+}
+
+const cat: ICat = {
+  name: "Lucy",
+};
+
+function someFn(this: ICat, greeting: string) {
+  console.log(`${greeting} ${this.name}`); // ok
+}
+someFn.call(cat, "Hello"); // Hello Lucy
