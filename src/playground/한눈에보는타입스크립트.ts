@@ -640,3 +640,37 @@ function someFn(this: ICat, greeting: string) {
   console.log(`${greeting} ${this.name}`); // ok
 }
 someFn.call(cat, "Hello"); // Hello Lucy
+
+/* 오버로드 */
+function add(a: string, b: string): string; // 함수 선언
+function add(a: number, b: number): number; // 함수 선언
+function add(a: any, b: any): any {
+  // 함수 구현
+  return a + b;
+}
+
+add("hello ", "world~");
+add(1, 2);
+add("hello ", 2); // Error - No overload matches this call.
+
+interface IUser {
+  name: string;
+  age: number;
+  getData(x: string): string[];
+  getData(x: number): string;
+}
+
+let user: IUser = {
+  name: "Neo",
+  age: 36,
+  getData: (data: any) => {
+    if (typeof data === "string") {
+      return data.split("");
+    } else {
+      return data.toString();
+    }
+  },
+};
+
+user.getData("Hello"); // ['h', 'e', 'l', 'l', 'o']
+user.getData(123); // '123'
