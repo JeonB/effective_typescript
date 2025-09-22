@@ -674,3 +674,100 @@ let user: IUser = {
 
 user.getData("Hello"); // ['h', 'e', 'l', 'l', 'o']
 user.getData(123); // '123'
+
+/* 클래스 */
+class Animal {
+  name: string;
+  constructor(name: string) {
+    this.name = name;
+  }
+}
+class Cat extends Animal {
+  getName(): string {
+    return `Cat name is ${this.name}.`;
+  }
+}
+let cat: Cat;
+cat = new Cat("Lucy");
+console.log(cat.getName()); // Cat name is Lucy.
+
+class Animal {
+  // public 수식어 사용(생략 가능)
+  public name: string;
+  constructor(name: string) {
+    this.name = name;
+  }
+}
+class Cat extends Animal {
+  getName(): string {
+    return `Cat name is ${this.name}.`;
+  }
+}
+let cat = new Cat("Lucy");
+console.log(cat.getName()); // Cat name is Lucy.
+
+cat.name = "Tiger";
+console.log(cat.getName()); // Cat name is Tiger.
+
+class Animal {
+  // private 수식어 사용
+  private name: string;
+  constructor(name: string) {
+    this.name = name;
+  }
+}
+class Cat extends Animal {
+  getName(): string {
+    return `Cat name is ${this.name}.`; // Error - TS2341: Property 'name' is private and only accessible within class 'Animal'
+  }
+}
+let cat = new Cat("Lucy");
+console.log(cat.getName());
+console.log(cat.name); // Error - TS2341: Property 'name' is private and only accessible within class 'Animal'.
+
+cat.name = "Tiger"; // Error - TS2341: Property 'name' is private and only accessible within class 'Animal'.
+console.log(cat.getName());
+
+class Cat {
+  constructor(public name: string, protected age: number) {}
+  getName() {
+    return this.name;
+  }
+  getAge() {
+    return this.age;
+  }
+}
+
+const cat = new Cat("Neo", 2);
+console.log(cat.getName()); // Neo
+console.log(cat.getAge()); // 2
+
+class Cat {
+  static legs: number;
+  constructor() {
+    Cat.legs = 4; // Init static property.
+  }
+}
+console.log(Cat.legs); // undefined
+new Cat();
+console.log(Cat.legs); // 4
+
+class Dog {
+  // Init static method.
+  static getLegs() {
+    return 4;
+  }
+}
+console.log(Dog.getLegs()); // 4
+
+class Cat {
+  public readonly name: string;
+  protected static eyes: number;
+  constructor(n: string) {
+    this.name = n;
+    Cat.eyes = 2;
+  }
+  private static getLegs() {
+    return 4;
+  }
+}
