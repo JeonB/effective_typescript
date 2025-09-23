@@ -771,3 +771,52 @@ class Cat {
     return 4;
   }
 }
+
+/* Optional */
+function add(x: number, y?: number): number {
+  return x + (y || 0);
+}
+const sum = add(2);
+console.log(sum);
+
+function add(x: number, y: number | undefined): number {
+  return x + (y || 0);
+}
+const sum = add(2, undefined);
+console.log(sum);
+
+interface IUser {
+  name: string;
+  age: number;
+  isAdult?: boolean;
+}
+
+let user1: IUser = {
+  name: "Neo",
+  age: 123,
+  isAdult: true,
+};
+
+let user2: IUser = {
+  name: "Evan",
+  age: 456,
+};
+
+interface IUser {
+  name: string;
+  age: number;
+  isAdult?: boolean;
+  validate?(): boolean;
+}
+type TUser = {
+  name: string;
+  age: number;
+  isAdult?: boolean;
+  validate?(): boolean;
+};
+abstract class CUser {
+  abstract name: string;
+  abstract age: number;
+  abstract isAdult?: boolean;
+  abstract validate?(): boolean;
+}
