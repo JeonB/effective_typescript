@@ -17,4 +17,4 @@ const tupleLike: ArrayLike<string> = {
 };
 
 console.log(checkedAccess(tupleLike, 1));
-console.log(typeof (length in tupleLike));
+type LengthType = (typeof tupleLike)["length"];
