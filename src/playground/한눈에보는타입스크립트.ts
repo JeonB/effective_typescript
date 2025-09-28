@@ -820,3 +820,23 @@ abstract class CUser {
   abstract isAdult?: boolean;
   abstract validate?(): boolean;
 }
+
+/* 모듈 */
+// 인터페이스 내보내기
+export interface IUser {
+  name: string;
+  age: number;
+}
+
+// 타입 별칭 내보내기
+export type MyType = string | number;
+
+// 선언한 모듈(myTypes.ts) 가져오기
+import type { IUser, MyType } from "./myTypes";
+
+const user: IUser = {
+  name: "HEROPY",
+  age: 85,
+};
+
+const something: MyType = true; // Error - TS2322: Type 'true' is not assignable to type 'MyType'.
