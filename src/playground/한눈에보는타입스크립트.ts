@@ -844,3 +844,5 @@ const something: MyType = true; // Error - TS2322: Type 'true' is not assignable
 import * as _ from "lodash"; // Error - TS2307: Cannot find module 'lodash'.
 
 console.log(_.camelCase("import lodash module"));
+console.log(_.snakeCase("import lodash module"));
+console.log(_.kebabCase("import lodash module"));
