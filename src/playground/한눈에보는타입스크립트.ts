@@ -840,3 +840,7 @@ const user: IUser = {
 };
 
 const something: MyType = true; // Error - TS2322: Type 'true' is not assignable to type 'MyType'.
+
+import * as _ from "lodash"; // Error - TS2307: Cannot find module 'lodash'.
+
+console.log(_.camelCase("import lodash module"));
