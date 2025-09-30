@@ -846,3 +846,32 @@ import * as _ from "lodash"; // Error - TS2307: Cannot find module 'lodash'.
 console.log(_.camelCase("import lodash module"));
 console.log(_.snakeCase("import lodash module"));
 console.log(_.kebabCase("import lodash module"));
+
+/* 데코레이터 */
+function 데코레이터(타깃: 타입) {
+  console.log(타깃)
+}
+
+@데코레이터
+타깃
+
+
+function 데코레이터(인수: 타입) {
+  return function (타깃: 타입) {
+    console.log(타깃)
+  }
+}
+
+@데코레이터(인수)
+타깃
+
+
+import { 데코레이터1, 데코레이터2 } from '경로1'
+import { 데코레이터3 } from '경로2'
+
+
+// 아래에서 위로 활성
+@데코레이터3
+@데코레이터2
+@데코레이터1
+타깃
