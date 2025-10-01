@@ -875,3 +875,61 @@ import { 데코레이터3 } from '경로2'
 @데코레이터2
 @데코레이터1
 타깃
+
+
+
+/* 클래스 데코레이터 */
+class Calculator {
+  constructor(public x: number) {}
+  add(y: number) {
+    return this.x + y
+  }
+  sub(y: number) {
+    return this.x - y
+  }
+  mul(y: number) {
+    return this.x * y
+  }
+  div(y: number) {
+    return this.x / y
+  }
+}
+
+const calc = new Calculator(7)
+console.log(calc.add(1)) // 8
+console.log(calc.sub(3)) // 4
+console.log(calc.mul(4)) // 28
+console.log(calc.div(2)) // 3.5
+
+
+function sealed(constructor: Function) {
+  Object.seal(constructor) // 클래스를 봉인 (확장, 삭제 불가)
+  Object.seal(constructor.prototype) // 프로토타입 객체도 봉인
+}
+
+@sealed
+class Calculator {
+  // ...
+}
+
+Calculator.prototype.x = 10 // Type OK! but, Runtime Error!
+
+
+type Constructor = { new (...args: any[]): any }
+function modulo<T extends Constructor>(constructor: T) {
+  return class extends constructor {
+    mod(y: number) {
+      return this.x % y
+    }
+  }
+}
+
+@modulo
+class Calculator {
+  // ...
+}
+
+const calc = new Calculator(7)
+console.log(calc.add(1)) // 8
+// @ts-ignore
+console.log(calc.mod(2)) // Type Error! but, 1
