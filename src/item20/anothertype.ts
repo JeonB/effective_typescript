@@ -12,8 +12,10 @@ const item20 = () => {
   const id4 = "123456";
   fetchProduct(id4);
 
+  /* 가려지는 변수 */
+  const id = "123456";
   const fetchSerialItem = () => {
-    const id = 123456; //  가려지는 변수(다른 타입이 동일한 변수명 사용)를 사용하면 안 됨. 혼동을 주기 때문
+    const id = 123456; // 혼동을 주기 때문에 다른 타입이 동일한 변수명 사용하면 안 됨.
     return fetchProductBySerialNum(id);
   };
 };
