@@ -27,3 +27,12 @@ const user4: User<string[]> = {
   name: "Neo",
   age: ["123", "456", "789"],
 };
+
+/* 제네릭 타입 추론 */
+function identity<T extends U>(value: T): T {
+  return value;
+}
+
+const result = identity(1);
+const result2 = identity("Hello");
+const result3 = identity(["Hello", "World"]);
