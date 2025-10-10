@@ -83,7 +83,7 @@ function logLength<T extends Lengthwise>(arg: T): T {
 // 사용 예시
 logLength("Hello"); // string은 length 속성을 가짐
 logLength([1, 2, 3]); // array는 length 속성을 가짐
-// logLength(123); // Error: number는 length 속성이 없음
+logLength(123); // Error: number는 length 속성이 없음
 
 // 5. keyof 연산자와 제네릭
 function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
@@ -270,7 +270,7 @@ const numberDict: Dictionary<number> = {
 };
 
 // 18. 제네릭과 제네릭 (중첩 제네릭)
-interface ApiResponse<T> {
+interface ApiResponse2<T> {
   data: T;
   status: number;
   message: string;
@@ -283,7 +283,7 @@ interface PaginatedResponse<T> {
   limit: number;
 }
 
-type UserListResponse = ApiResponse<PaginatedResponse<User>>;
+type UserListResponse = ApiResponse2<PaginatedResponse<User>>;
 
 // 19. 제네릭과 타입 가드
 function isArray<T>(value: unknown): value is T[] {

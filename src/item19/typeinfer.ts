@@ -19,6 +19,7 @@ const item19 = () => {
     price: 20000,
   };
 
+  // 비구조화 할당문을 사용하여 지역변수 타입이 자동으로 추론된다.
   function logProduct(product: Product) {
     const { id, name, price } = product;
     console.log(id, name, price);
@@ -37,7 +38,7 @@ const item19 = () => {
 
   const cache: { [ticker: string]: number } = {};
 
-  // 함수의 반환타입은 명시하는 것이 좋다
+  // 함수의 반환타입은 타입추론되더라도 명시하는 것이 좋다
   function getQuote(ticker: string): Promise<number> {
     if (ticker in cache) return cache[ticker];
 
