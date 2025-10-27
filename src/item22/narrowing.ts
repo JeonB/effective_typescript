@@ -35,7 +35,11 @@ const item22 = () => {
   }
 
   const jackson5 = ["Michael", "Tito", "Jackie", "Marlon", "Jermaine"];
-  const members = ["Janet", "John"]
+  const members = ["Janet", "John", "Jermaine", "Michael"]
     .map((who) => jackson5.find((n) => n === who))
     .filter(isDefined);
+
+  console.log(members);
 };
+
+item22();
