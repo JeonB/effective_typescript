@@ -59,3 +59,82 @@ const elem = document.getElementById("myElem") as HTMLDivElement | null;
 if (elem) {
   elem.style.color = "blue";
 }
+/* 6. 인터페이스와 타입 별칭 */
+interface Animal {
+  name: string;
+  sound(): void;
+}
+
+type Vehicle = {
+  brand: string;
+  year: number;
+};
+
+const dog: Animal = {
+  name: "멍멍이",
+  sound() {
+    console.log(`${this.name}가 짖어요!`);
+  },
+};
+
+const car: Vehicle = {
+  brand: "Hyundai",
+  year: 2023,
+};
+
+dog.sound();
+console.log(car);
+
+/* 7. 옵셔널 체이닝과 널 병합 연산자 */
+type Book = {
+  title: string;
+  author?: {
+    name: string;
+  };
+};
+
+const b1: Book = { title: "마음의 등대" };
+console.log(b1.author?.name ?? "저자 정보 없음");
+
+/* 8. readonly와 const assertion */
+type Color = {
+  readonly hex: string;
+};
+
+const skyBlue: Color = { hex: "#87ceeb" };
+// skyBlue.hex = "#000000"; // 에러: 읽기 전용 프로퍼티
+
+const RGB = [255, 255, 0] as const;
+// RGB[0] = 0; // 에러: 수정 불가
+
+/* 9. 타입 추론과 ReturnType, Parameters 유틸리티 타입 */
+function multiply(a: number, b: number) {
+  return a * b;
+}
+type MultiplyReturn = ReturnType<typeof multiply>;
+type MultiplyParams = Parameters<typeof multiply>;
+
+const multResult: MultiplyReturn = multiply(2, 3);
+const params: MultiplyParams = [4, 5];
+console.log(multResult, multiply(...params));
+
+/* 10. 인덱스드 엑세스 타입과 keyof */
+type UserSample2 = {
+  id: number;
+  username: string;
+  email: string;
+};
+
+type UserKey = keyof UserSample2; // "id" | "username" | "email"
+type UserNameType = UserSample2["username"]; // string
+
+function printUserField(user: UserSample2, field: UserKey) {
+  console.log(user[field]);
+}
+
+const sampleUser: UserSample2 = {
+  id: 10,
+  username: "jo",
+  email: "jo@email.com",
+};
+printUserField(sampleUser, "username");
