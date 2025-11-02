@@ -138,3 +138,47 @@ const sampleUser: UserSample2 = {
   email: "jo@email.com",
 };
 printUserField(sampleUser, "username");
+
+/* 11. 맵드 타입 (Mapped Types) */
+type Optional<T> = {
+  [K in keyof T]?: T[K];
+};
+
+type PartialUser = Optional<UserSample2>;
+const optUser: PartialUser = { id: 1 }; // username, email 생략 가능
+
+/* 12. 조건부 타입 (Conditional Types) */
+type IsString<T> = T extends string ? true : false;
+type Test1 = IsString<"abc">; // true
+type Test2 = IsString<42>; // false
+
+/* 13. 인터섹션(&)과 유니온(|) 타입 */
+type Admin = { admin: true };
+type NormalUser = { admin?: false };
+type FullUser = UserSample2 & Admin;
+const superUser: FullUser = {
+  id: 1,
+  username: "super",
+  email: "super@email.com",
+  admin: true,
+};
+type Anyone = UserSample2 | Admin;
+
+/* 14. 타입 가드 함수 */
+function isAdmin(user: UserSample2 | FullUser): user is FullUser {
+  return "admin" in user && user.admin === true;
+}
+if (isAdmin(superUser)) {
+  // 타입이 FullUser로 좁혀짐
+  console.log("관리자입니다");
+}
+
+/* 15. 함수 오버로딩 */
+function join(a: string, b: string): string;
+function join(a: number, b: number): number;
+function join(a: any, b: any): any {
+  return a + b;
+}
+const strJoin = join("a", "b"); // string
+const numJoin = join(1, 2); // number
+console.log(strJoin, numJoin);
