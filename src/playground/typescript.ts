@@ -182,3 +182,32 @@ function join(a: any, b: any): any {
 const strJoin = join("a", "b"); // string
 const numJoin = join(1, 2); // number
 console.log(strJoin, numJoin);
+
+/* 16. keyof 연산자 */
+type Car = { brand: string; model: string; year: number };
+type CarKeys = keyof Car; // "brand" | "model" | "year"
+function printCarKey(key: CarKeys) {
+  console.log("Car key:", key);
+}
+printCarKey("brand");
+
+/* 17. 타입 단언(as) */
+const input = document.createElement("input");
+const inputElement = input as HTMLInputElement;
+inputElement.value = "hello";
+
+/* 18. 인덱스 시그니처 */
+type AnyObject = {
+  [key: string]: string | number;
+};
+const obj: AnyObject = { foo: "bar", num: 123 };
+
+/* 19. 유틸리티 타입 Record */
+type Fruit = "apple" | "banana";
+type FruitCount = Record<Fruit, number>;
+const count: FruitCount = { apple: 2, banana: 3 };
+
+/* 20. NonNullable 유틸리티 타입 */
+type MaybeString = string | null | undefined;
+type DefString = NonNullable<MaybeString>; // string
+const s: DefString = "hello";
