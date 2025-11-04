@@ -211,3 +211,36 @@ const count: FruitCount = { apple: 2, banana: 3 };
 type MaybeString = string | null | undefined;
 type DefString = NonNullable<MaybeString>; // string
 const s: DefString = "hello";
+
+/* 21. Partial 유틸리티 타입 */
+type UserProfile = {
+  name: string;
+  age: number;
+  email: string;
+};
+type UserProfileUpdate = Partial<UserProfile>;
+const partialUser: UserProfileUpdate = { email: "hi@example.com" };
+
+/* 22. Readonly 유틸리티 타입 */
+type ReadonlyProfile = Readonly<UserProfile>;
+const readonlyUser: ReadonlyProfile = {
+  name: "Kim",
+  age: 20,
+  email: "k@example.com",
+};
+// readonlyUser.name = "Lee"; // 에러: 읽기 전용 속성
+
+/* 23. Pick 유틸리티 타입 */
+type NameAndEmail = Pick<UserProfile, "name" | "email">;
+const miniUser: NameAndEmail = { name: "A", email: "a@x.kr" };
+
+/* 24. Omit 유틸리티 타입 */
+type OmitEmail = Omit<UserProfile, "email">;
+const person: OmitEmail = { name: "Moon", age: 30 };
+
+/* 25. 매핑된 타입(Mapped Type) */
+type Booleanified<T> = {
+  [K in keyof T]: boolean;
+};
+type FeatureFlags = Booleanified<UserProfile>;
+const flags: FeatureFlags = { name: true, age: false, email: true };
