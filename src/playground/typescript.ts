@@ -244,3 +244,47 @@ type Booleanified<T> = {
 };
 type FeatureFlags = Booleanified<UserProfile>;
 const flags: FeatureFlags = { name: true, age: false, email: true };
+
+/* 26. 제네릭 인터페이스 */
+interface ApiResponse<T> {
+  success: boolean;
+  data: T;
+  message?: string;
+}
+const userApiRes: ApiResponse<UserProfile> = {
+  success: true,
+  data: { name: "Kim", age: 23, email: "k@x.kr" },
+};
+
+/* 27. 인터섹션 타입 */
+type WithTimestamp = {
+  createdAt: Date;
+  updatedAt: Date;
+};
+type UserWithTime = UserProfile & WithTimestamp;
+const userWithTime: UserWithTime = {
+  name: "Kim",
+  age: 23,
+  email: "kim@x.kr",
+  createdAt: new Date(),
+  updatedAt: new Date(),
+};
+
+/* 28. 타입 제약이 있는 제네릭 */
+function getFirstElement<T extends Array<unknown>>(
+  arr: T
+): T[number] | undefined {
+  return arr[0];
+}
+const first = getFirstElement([10, 20, 30]);
+const firstStr = getFirstElement(["a", "b", "c"]);
+
+/* 29. 조건부 타입 */
+type IsString<T> = T extends string ? "STRING" : "NOT_STRING";
+type TestStr = IsString<string>; // "STRING"
+type TestNum = IsString<number>; // "NOT_STRING"
+
+/* 30. 템플릿 리터럴 타입 */
+type EventType = "click" | "scroll" | "keydown";
+type EventHandlerName = `on${Capitalize<EventType>}`;
+const clickHandler: EventHandlerName = "onClick";
