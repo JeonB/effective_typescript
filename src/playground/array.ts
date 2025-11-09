@@ -53,3 +53,25 @@ const flattened1 = nested.flat(1);
 const flattened2 = nested.flat(2);
 console.log("flat 결과(1단계):", flattened1); // [1, 2, [3, 4], 5]
 console.log("flat 결과(2단계):", flattened2); // [1, 2, 3, 4, 5]
+
+// 11. fill: 배열의 일부 또는 전체를 특정 값으로 채움
+const filled = new Array(5).fill(7);
+console.log("fill 결과:", filled); // [7, 7, 7, 7, 7]
+
+// 12. join: 배열의 모든 요소를 구분자로 연결한 문자열로 반환
+const words = ["hello", "world", "typescript"];
+const joined = words.join(", ");
+console.log("join 결과:", joined); // "hello, world, typescript"
+
+// 13. reverse: 배열의 순서를 반전 (원본 배열 변경)
+const original = [1, 2, 3, 4, 5];
+const reversed = [...original].reverse();
+console.log("reverse 결과:", reversed); // [5, 4, 3, 2, 1]
+
+// 14. at: 배열의 특정 위치에 있는 요소를 반환 (음수 인덱스 지원)
+const atExample = nums.at(-1); // 마지막 요소
+console.log("at 결과(-1):", atExample); // 10
+
+// 15. findLast: 배열의 마지막에서부터 조건을 만족하는 첫 번째 요소 반환 (ES2023+)
+const lastEven = nums.findLast((num) => num % 2 === 0);
+console.log("findLast 결과:", lastEven); // 10
