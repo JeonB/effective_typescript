@@ -75,3 +75,32 @@ console.log("at 결과(-1):", atExample); // 10
 // 15. findLast: 배열의 마지막에서부터 조건을 만족하는 첫 번째 요소 반환 (ES2023+)
 const lastEven = nums.findLast((num) => num % 2 === 0);
 console.log("findLast 결과:", lastEven); // 10
+// 16. some: 배열에 조건을 만족하는 요소가 하나라도 있는지 여부
+const hasGreaterThanTen = nums.some((num) => num > 10);
+console.log("some 결과(10보다 큰 값 존재):", hasGreaterThanTen); // false
+
+// 17. every: 배열의 모든 요소가 조건을 만족하는지 여부
+const allPositive = nums.every((num) => num > 0);
+console.log("every 결과(모두 양수):", allPositive); // true
+
+// 18. reduceRight: 배열을 오른쪽부터 왼쪽으로 누적 계산
+const rightSum = nums.reduceRight((acc, curr) => acc + curr, 0);
+console.log("reduceRight 결과:", rightSum); // 55
+
+// 19. toReversed: 원본 배열을 건드리지 않고 반전된 새로운 배열 반환 (ES2023+)
+const reversedNew = nums.toReversed();
+console.log("toReversed 결과:", reversedNew); // [10,9,8,7,6,5,4,3,2,1]
+
+// 20. groupBy: 배열을 특정 기준으로 그룹핑 (ES2023+)
+const groupBy = <T, K extends string | number | symbol>(
+  arr: T[],
+  keyFn: (item: T) => K
+): Record<K, T[]> => {
+  return arr.reduce((acc, curr) => {
+    const key = keyFn(curr);
+    (acc[key] = acc[key] || []).push(curr);
+    return acc;
+  }, {} as Record<K, T[]>);
+};
+const groupedByOddEven = groupBy(nums, (n) => (n % 2 === 0 ? "even" : "odd"));
+console.log("groupBy 결과(짝/홀):", groupedByOddEven); // {even: [...], odd: [...]}
