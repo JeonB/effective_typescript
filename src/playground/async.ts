@@ -115,3 +115,72 @@ async function example5() {
   }
 }
 example5();
+
+// 6. async/await로 순차적 파일명 변환 예시
+async function renameFiles(files: string[]): Promise<string[]> {
+  // 임의의 비동기 파일명 변경 시뮬레이션
+  const renamed = [];
+  for (const file of files) {
+    const newName = await delayedValue(file.length, 100).then(
+      (len) => `renamed_${file}_${len}`
+    );
+    renamed.push(newName);
+  }
+  return renamed;
+}
+renameFiles(["cat.png", "dog.jpg", "bird.gif"]).then((res) =>
+  console.log("example6:", res)
+);
+
+// 7. async 함수 에러 핸들링: 사용자 데이터 fetch (mock)
+type User = {
+  id: number;
+  name: string;
+};
+async function fetchUser(id: number): Promise<User> {
+  if (id < 0) throw new Error("Invalid user id");
+  return new Promise((resolve) =>
+    setTimeout(() => resolve({ id, name: `User${id}` }), 200)
+  );
+}
+async function example7() {
+  try {
+    const user = await fetchUser(1);
+    console.log("example7:", user);
+    await fetchUser(-1);
+  } catch (e) {
+    console.error("example7 error:", e);
+  }
+}
+example7();
+
+// 8. async function에서 반복과 병렬 처리 조합
+async function fetchValues(ids: number[]): Promise<number[]> {
+  return Promise.all(ids.map((id) => delayedValue(id * 10, 100)));
+}
+fetchValues([1, 2, 3, 4, 5]).then((res) => console.log("example8:", res));
+
+// 9. 비동기 조건 처리 (await와 if/else)
+async function isEvenDelayed(num: number): Promise<boolean> {
+  const value = await delayedValue(num, 100);
+  return value % 2 === 0;
+}
+async function example9(num: number) {
+  if (await isEvenDelayed(num)) {
+    console.log(`example9: ${num}는 짝수입니다.`);
+  } else {
+    console.log(`example9: ${num}는 홀수입니다.`);
+  }
+}
+example9(8);
+example9(13);
+
+// 10. async + reduce: 순차 누적 비동기 연산
+async function asyncSum(numbers: number[]): Promise<number> {
+  return numbers.reduce<Promise<number>>(async (accP, curr) => {
+    const acc = await accP;
+    const val = await delayedValue(curr, 100);
+    return acc + val;
+  }, Promise.resolve(0));
+}
+asyncSum([1, 2, 3, 4, 5]).then((sum) => console.log("example10: 총합 =", sum));
