@@ -133,11 +133,11 @@ renameFiles(["cat.png", "dog.jpg", "bird.gif"]).then((res) =>
 );
 
 // 7. async 함수 에러 핸들링: 사용자 데이터 fetch (mock)
-type User = {
+type User2 = {
   id: number;
   name: string;
 };
-async function fetchUser(id: number): Promise<User> {
+async function fetchUser(id: number): Promise<User2> {
   if (id < 0) throw new Error("Invalid user id");
   return new Promise((resolve) =>
     setTimeout(() => resolve({ id, name: `User${id}` }), 200)
@@ -184,3 +184,16 @@ async function asyncSum(numbers: number[]): Promise<number> {
   }, Promise.resolve(0));
 }
 asyncSum([1, 2, 3, 4, 5]).then((sum) => console.log("example10: 총합 =", sum));
+
+fetch("https://jsonplaceholder.typicode.com/todos/1")
+  .then((res) => res.json())
+  .then((data) => console.log(data));
+async function example11() {
+  const result = await fetch("https://jsonplaceholder.typicode.com/todos/1");
+  if (!result.ok) {
+    throw new Error("Failed to fetch");
+  }
+  const data = await result.json();
+  console.log("example11:", data);
+}
+example11();
