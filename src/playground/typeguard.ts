@@ -1,7 +1,7 @@
 // lib/utils/type-guards.ts
 // lib/types/section.types.ts
 
-// 기본 섹션 타입
+// 기본 회기 타입
 export interface Section {
   id: string;
   title: string;

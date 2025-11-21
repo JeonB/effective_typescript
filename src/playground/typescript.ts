@@ -152,7 +152,7 @@ type IsString<T> = T extends string ? true : false;
 type Test1 = IsString<"abc">; // true
 type Test2 = IsString<42>; // false
 
-/* 13. 인터섹션(&)과 유니온(|) 타입 */
+/* 13. 인터회기(&)과 유니온(|) 타입 */
 type Admin = { admin: true };
 type NormalUser = { admin?: false };
 type FullUser = UserSample2 & Admin;
@@ -256,7 +256,7 @@ const userApiRes: ApiResponse<UserProfile> = {
   data: { name: "Kim", age: 23, email: "k@x.kr" },
 };
 
-/* 27. 인터섹션 타입 */
+/* 27. 인터회기 타입 */
 type WithTimestamp = {
   createdAt: Date;
   updatedAt: Date;
