@@ -74,7 +74,47 @@ function* objectEntriesGenerator<T extends object>(obj: T) {
 }
 
 // 사용 예시
-const user = { name: "Kim", age: 28 };
-const objGen = objectEntriesGenerator(user);
+const user5 = { name: "Kim", age: 28 };
+const objGen = objectEntriesGenerator(user5);
 console.log(objGen.next().value); // ['name', 'Kim']
 console.log(objGen.next().value); // ['age', 28]
+
+/**
+ * 예시: 피보나치 수열을 생성하는 제네레이터
+ */
+function* fibonacciGenerator(): Generator<number, void, unknown> {
+  let a = 0;
+  let b = 1;
+  while (true) {
+    yield a;
+    [a, b] = [b, a + b];
+  }
+}
+
+// 사용 예시
+const fibGen = fibonacciGenerator();
+console.log(fibGen.next().value); // 0
+console.log(fibGen.next().value); // 1
+console.log(fibGen.next().value); // 1
+console.log(fibGen.next().value); // 2
+console.log(fibGen.next().value); // 3
+console.log(fibGen.next().value); // 5
+
+/**
+ * 예시: 배열을 chunk 단위로 잘라 반환하는 제네레이터
+ */
+function* arrayChunkGenerator<T>(
+  arr: T[],
+  chunkSize: number
+): Generator<T[], void, unknown> {
+  for (let i = 0; i < arr.length; i += chunkSize) {
+    yield arr.slice(i, i + chunkSize);
+  }
+}
+
+// 사용 예시
+const arr = [1, 2, 3, 4, 5, 6, 7];
+const chunkGen = arrayChunkGenerator(arr, 3);
+console.log(chunkGen.next().value); // [1, 2, 3]
+console.log(chunkGen.next().value); // [4, 5, 6]
+console.log(chunkGen.next().value); // [7]
